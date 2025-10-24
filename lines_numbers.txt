@@ -1,0 +1,20 @@
+0: mela
+1: arancia
+2: casa
+3: albero
+4: Python is great!
+5: triciclo
+6: bicicletta
+7: automobile
+8: Python programming
+9: computer
+10: telefono
+11: tavolo
+12: sedia
+13: Python script
+14: finestra
+15: porta
+16: libro
+17: penna
+18: quaderno
+19: Python function

@@ -6,11 +6,11 @@ conto = 0
 vocali = list("aeiou")
 
 
-with open("lines.txt", 'r') as file:
+with open("lines.txt", "r") as file:
     for line in file:
         for vocale in vocali:
             if vocale in line.lower():
                 conto += 1
                 break
-            
+
 print(f"Il numero di righe con almeno una vocale è: {conto}")

@@ -8,7 +8,7 @@ while True:
     n = int(input("Inserici un numero oppure 0 per fermarti: "))
     if n == 0:
         break
-    
+
     somma += n
 
 print(somma)

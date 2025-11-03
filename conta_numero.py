@@ -11,5 +11,5 @@ conto = 0
 for x in numeri:
     if x == n:
         conto += 1
-        
+
 print(conto)

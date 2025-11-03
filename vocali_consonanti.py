@@ -1,7 +1,6 @@
-
 frase = input("Inserisci una frase: ")
 
-frequenze = {c : frase.lower().count(c) for c in set(frase.lower())}
+frequenze = {c: frase.lower().count(c) for c in set(frase.lower())}
 vocali = set("aeiou")
 
 c_vocali = 0
@@ -11,7 +10,7 @@ for lettera, frequenza in frequenze.items():
         c_vocali += frequenza
     else:
         c_consonanti += frequenza
-        
+
 if c_vocali > c_consonanti:
     print("Ci sono più vocali")
 elif c_consonanti > c_vocali:

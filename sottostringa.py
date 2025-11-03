@@ -9,7 +9,7 @@ for i, lettera in enumerate(frase):
 print()
 
 # soluzione 2
-for i in range(start, end+1):
+for i in range(start, end + 1):
     print(frase[i], end="")
 print()
 

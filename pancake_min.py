@@ -1,10 +1,8 @@
-
-
 def bake_pancakes(latte, farina):
-    
+
     pancakes_milk = latte // 250
     pancakes_flour = farina // 200
-        
+
     return min(pancakes_milk, pancakes_flour) * 4
 
 

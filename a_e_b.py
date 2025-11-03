@@ -23,18 +23,18 @@ x = len(comando) // 2
 has_changed = False
 while True:
     for i in range(len(lista_comandi) - 1):
-        
+
         comando = lista_comandi[i]
-        
-        if comando == lista_comandi[i+1]:
+
+        if comando == lista_comandi[i + 1]:
             ## unione
             lista_comandi.pop(i)
             has_changed = True
             break
-    
+
     if not has_changed:
         break
     has_changed = False
-    
+
 print(f"Il numero finale è: {x}")
 print(f"Il comando finale è {"".join(lista_comandi)}")

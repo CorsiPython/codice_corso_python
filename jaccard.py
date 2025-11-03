@@ -1,11 +1,11 @@
-A = set([1,2,3,4])
-B = set([3,4,5,6])
+A = set([1, 2, 3, 4])
+B = set([3, 4, 5, 6])
 
 C_intersection = set()
 for n in A:
     if n in B:
         C_intersection.add(n)
-        
+
 
 C_union = set()
 for a in A:

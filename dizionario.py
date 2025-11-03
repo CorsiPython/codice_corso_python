@@ -23,7 +23,7 @@ frutta = [
     "arancia",
     "arancia",
     "arancia",
-    "arancia"
+    "arancia",
 ]
 
 prezzo = 0
@@ -32,14 +32,7 @@ for frutto in frutta:
 
 print(prezzo)
 
-print(
-    sum(
-        map(
-            lambda frutto : frutta_prezzi[frutto],
-            frutta
-        )
-    )
-)
+print(sum(map(lambda frutto: frutta_prezzi[frutto], frutta)))
 
 # stampa tutti i frutti diversi nel carrello
 print(set(frutta))

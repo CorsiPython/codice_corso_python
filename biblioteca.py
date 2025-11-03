@@ -2,66 +2,68 @@ from dataclasses import dataclass
 import pickle
 import os
 
+
 @dataclass(order=True)
 class Libro:
-    
 
     titolo: str
     autore: str
     anno_pub: int
-    
+
     def descrizione(self):
-        
+
         return f"""
               Titolo: {self.titolo}
               Autore: {self.autore}
               Anno: {self.anno_pub}
               """
 
+
 class Sezione:
-    
-    def __init__(self, tema, libri = None):
-        
+
+    def __init__(self, tema, libri=None):
+
         self.tema = tema
         self.libri = libri if libri else []
 
     def aggiungi_libro(self, libro):
-        
+
         self.libri.append(libro)
-        
+
     def rimuovi_libro(self, titolo):
-        
+
         for i, libro in enumerate(self.libri):
-            
+
             if libro.titolo == titolo:
                 self.libri.pop(i)
                 break
-            
+
     def stampa_libri(self):
-        
+
         for libro in self.libri:
-            print(libro.descrizione()) 
-            
+            print(libro.descrizione())
+
     def cerca_libro(self, titolo):
-        
+
         for libro in self.libri:
             if libro.titolo == titolo:
                 return libro
         return None
-    
+
     def cerca_autore(self, autore):
-        
+
         autori = []
-        
+
         for libro in self.libri:
             if libro.autore == autore:
                 autori.append(libro)
-                
+
         return Sezione("Ricerca", autori)
+
 
 class Biblioteca:
 
-    def __init__(self, sezioni = None):
+    def __init__(self, sezioni=None):
 
         self.sezioni = sezioni if sezioni else []
 
@@ -70,8 +72,7 @@ class Biblioteca:
 
     def rimuovi_sez(self, tema):
 
-        self.sezioni = filter(lambda sez : sez.tema != tema, 
-                                self.sezioni)
+        self.sezioni = filter(lambda sez: sez.tema != tema, self.sezioni)
 
     def cerca_libro(self, titolo):
 
@@ -95,8 +96,9 @@ class Biblioteca:
             print(sez.tema)
             sez.stampa_libri()
 
+
 if __name__ == "__main__":
-    
+
     if not os.path.exists("biblio.pkl"):
 
         biblio = Biblioteca()
@@ -121,7 +123,7 @@ if __name__ == "__main__":
 
         trovato = sez.cerca_autore("George Orwell")
         trovato.stampa_libri()
-        
+
         biblio.aggiungi_sez(sez)
 
         ## Creo Nuova Sezione
@@ -133,12 +135,12 @@ if __name__ == "__main__":
         ]
 
         biblio.aggiungi_sez(Sezione("Fantasy", libri))
-        print("##### BIBLIOTECA #####")    
+        print("##### BIBLIOTECA #####")
         biblio.stampa_sezioni()
-        
-        with open("biblio.pkl", 'wb') as f:
+
+        with open("biblio.pkl", "wb") as f:
             pickle.dump(biblio, f)
     else:
-        with open("biblio.pkl", 'rb') as f:
+        with open("biblio.pkl", "rb") as f:
             biblio = pickle.load(f)
         biblio.stampa_sezioni()

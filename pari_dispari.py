@@ -5,10 +5,8 @@
 lista = []
 
 for _ in range(10):
-    lista.append(
-        int(input("Inserisci un numero: "))
-    )
-    
+    lista.append(int(input("Inserisci un numero: ")))
+
 # Abbiamo una lista piena di numeri!
 
 somma = 0
@@ -16,7 +14,7 @@ somma = 0
 for n in lista:
     if n % 2 == 0:
         somma += n
-    else: 
+    else:
         somma -= n
-        
+
 print("Totale: ", somma)

@@ -1,14 +1,12 @@
-
-
 def bake_pancakes(latte, farina):
-    
+
     pancakes = 0
     while latte >= 250 and farina >= 200:
         pancakes += 4
         latte -= 250
         farina -= 200
-        
-    return pancakes 
+
+    return pancakes
 
 
 # === programma principale

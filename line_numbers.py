@@ -3,7 +3,7 @@
 # partire da 1). Ad esempio, la prima riga del nuovo file dovrebbe essere "1: <contenuto
 # della prima riga del file originale>".
 
-with open("lines.txt", 'r') as infile, open("lines_numbers.txt", 'w') as outfile:
-    
+with open("lines.txt", "r") as infile, open("lines_numbers.txt", "w") as outfile:
+
     for i, line in enumerate(infile):
         outfile.write(f"{i + 1}: {line}")

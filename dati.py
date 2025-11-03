@@ -6,16 +6,14 @@
 
 colonna = input("Insersci una colonna su cui fare la media: ")
 
-with open("dati.csv", 'r') as file:
-    
+with open("dati.csv", "r") as file:
+
     righe = [riga.strip() for riga in file.readlines()]
-    
+
     header = righe[0].split(",")
     content = righe[1:]
 
-    dati = {attributo : []
-            for attributo in header
-            }
+    dati = {attributo: [] for attributo in header}
 
 for i, record in enumerate(content):
 
@@ -23,9 +21,9 @@ for i, record in enumerate(content):
 
     for attributo, dato in zip(header, record):
         dati[attributo].append(int(dato))
-        
 
-if not colonna in dati:
+
+if colonna not in dati:
     raise ValueError("L'attributo non è valido")
 
 somma = 0

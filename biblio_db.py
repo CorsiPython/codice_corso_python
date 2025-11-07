@@ -1,9 +1,95 @@
 import sqlite3 as sql
+from dataclasses import dataclass
+
+@dataclass
+class PK:
+    titolo: str
+    autore: str
+    anno: int
+
+def cerca_libro(cursor, titolo):
+
+    cursor.execute("""
+                SELECT * 
+                FROM libri
+                WHERE libri.titolo = ?
+                   """, (titolo,))
+    return cursor.fetchall()
+
+
+def cerca_per_autore(cursor, autore):
+
+    cursor.execute(
+        """
+                SELECT * 
+                FROM libri
+                WHERE libri.autore = ?
+                ORDER BY libri.anno DESC
+                   """,
+        (autore,),
+    )
+    return cursor.fetchall()
+
+def presta_libro(cursor, key: PK):
+
+    cursor.execute(
+        """
+        SELECT COUNT(*) FROM libri as l
+        WHERE l.autore = ? 
+        AND l.anno = ?
+        AND l.titolo = ?
+        """, (key.autore, key.anno, key.titolo)
+    )
+
+    if cursor.fetchone()[0]:
+        print("Libro Trovato!")
+        cursor.execute(
+            """
+        UPDATE libri as l SET disponibile = 0
+        WHERE l.autore = ? 
+        AND l.anno = ?
+        AND l.titolo = ?
+        """,
+            (key.autore, key.anno, key.titolo),
+        )
+        return True
+
+    return False
+
+
+def restituisci_libro(cursor, key: PK):
+
+    cursor.execute(
+        """
+        SELECT COUNT(*) FROM libri as l
+        WHERE l.autore = ? 
+        AND l.anno = ?
+        AND l.titolo = ?
+        """,
+        (key.autore, key.anno, key.titolo),
+    )
+
+    if cursor.fetchone()[0]:
+        print("Libro Trovato!")
+        cursor.execute(
+            """
+        UPDATE libri as l SET disponibile = 1
+        WHERE l.autore = ? 
+        AND l.anno = ?
+        AND l.titolo = ?
+        """,
+            (key.autore, key.anno, key.titolo),
+        )
+        return True
+
+    return False
 
 
 with sql.connect("biblioteca.db") as db:
     cursor = db.cursor()
-    
+
+    # MIGRATION
+
     cursor.execute("""CREATE TABLE IF NOT EXISTS libri (
         titolo TEXT,
         autore TEXT,
@@ -12,7 +98,6 @@ with sql.connect("biblioteca.db") as db:
         PRIMARY KEY (titolo, autore, anno)
     )""")
     db.commit()
-
 
     books = [
         {"titolo": "Don Quixote", "autore": "Miguel de Cervantes", "anno": 1605, "disponibile": 1},
@@ -43,13 +128,18 @@ with sql.connect("biblioteca.db") as db:
     ]
 
     for book in books:
-        try:
-            cursor.execute(
-                """
-                INSERT INTO libri (titolo, autore, anno, disponibile)
-                VALUES (?, ?, ?, ?)
-                """, tuple(book.values())
-            )
-        except sql.IntegrityError as e:
-            print(e)
-            print(f"Hai provato a inserire un record doppio:\n{book}")
+
+        cursor.execute(
+            """
+            INSERT OR REPLACE INTO libri (titolo, autore, anno, disponibile)
+            VALUES (?, ?, ?, ?)
+            """, tuple(book.values())
+        )
+
+    print(cerca_libro(cursor, "Hamlet"))
+    print(cerca_per_autore(cursor, "Homer"))
+    print(
+        presta_libro(
+            cursor, PK("Hamlet", "William Shakespeare", 1603)
+        )
+    )

@@ -85,6 +85,16 @@ def restituisci_libro(cursor, key: PK):
     return False
 
 
+def libri_disponibili(cursor):
+    
+    cursor.execute("""
+                   SELECT * FROM libri as l WHERE l.disponibile = 1
+                   """)
+    res = cursor.fetchall()
+    
+    return len(res), res
+
+
 with sql.connect("biblioteca.db") as db:
     cursor = db.cursor()
 
@@ -143,3 +153,6 @@ with sql.connect("biblioteca.db") as db:
             cursor, PK("Hamlet", "William Shakespeare", 1603)
         )
     )
+    
+    n_libri, libri = libri_disponibili(cursor)
+    print(f"Ci sono {n_libri} libri disponibili:\n{libri}")

@@ -1,6 +1,6 @@
 class Pila:
 
-    def __init__(self, pila = None):
+    def __init__(self, pila=None):
 
         self.pila = pila if pila else []
 
@@ -40,7 +40,7 @@ def is_palindrome(s):
 
 if __name__ == "__main__":
 
-    pila = Pila([1,2,3])
+    pila = Pila([1, 2, 3])
 
     print(pila.pop())
     print(pila.size())
@@ -62,9 +62,7 @@ if __name__ == "__main__":
     for c in stringa:
         pila.push(c)
 
-    stringa = "".join([
-        pila.pop() for _ in range(pila.size())
-    ])
+    stringa = "".join([pila.pop() for _ in range(pila.size())])
     print(stringa)
     print(is_palindrome(stringa))
     print(is_palindrome("anna"))

@@ -20,19 +20,21 @@ class Coda:
 
         return len(self.coda) == 0
 
+
 # Usa la classe Coda per implementare una funzione is_palindrome(s) che prende una
 # stringa s e restituisce True se la stringa è un palindromo (si legge uguale da sinistra a
 # destra e da destra a sinistra), altrimenti False .
 
+
 def is_palindrome(s):
     coda = Coda()
-    
+
     for c in s:
         coda.push(c)
-        
+
     # "anna"
     # ["a", "n", "n", "a"]
-    
+
     # iteriamo la stringa AL CONTRARIO
     for c in reversed(s):
         altro = coda.pop()
@@ -54,7 +56,7 @@ if __name__ == "__main__":
         print(coda.pop())
 
     print(coda.is_empty())
-    
+
     stringa = "Sono al contrario"
     print(is_palindrome(stringa))
     print(is_palindrome("anna"))

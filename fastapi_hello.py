@@ -15,13 +15,12 @@ class Prodotto(BaseModel):
     prezzo: float
     disponibile: bool = True
 
+
 prodotti: List[Prodotto] = []
 
 
 @app.get("/prodotti", response_model=List[Prodotto])
-def lista_prodotti(
-    categoria: Optional[str] = None, limite: int = 10
-):
+def lista_prodotti(categoria: Optional[str] = None, limite: int = 10):
     return prodotti[:limite]
 
 

@@ -2,6 +2,7 @@ import gradio as gr
 import numpy as np
 import scipy.signal as signal
 
+
 def hello(img, do_grayscale, do_contrast, contrast, do_edges):
 
     luma = np.array([0.2126, 0.7152, 0.0722])
@@ -26,16 +27,12 @@ def hello(img, do_grayscale, do_contrast, contrast, do_edges):
         # https://stackoverflow.com/questions/53670456/intuition-behind-edge-detection-matrices-in-convolution-neural-network
         # Use two kernels (vertical and horizontal) and compute the average
         # We'll use Sobel-like kernels for better gradients
-        gx_kernel = np.array([[-1, 0, 1], 
-                              [-2, 0, 2], 
-                              [-1, 0, 1]], dtype=np.float64)
-        gy_kernel = np.array([[-1, -2, -1], 
-                              [0, 0, 0], 
-                              [1, 2, 1]], dtype=np.float64)
+        gx_kernel = np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]], dtype=np.float64)
+        gy_kernel = np.array([[-1, -2, -1], [0, 0, 0], [1, 2, 1]], dtype=np.float64)
 
         if img.ndim == 2:
-            gx = signal.convolve2d(img, gx_kernel, mode='same', boundary='symm')
-            gy = signal.convolve2d(img, gy_kernel, mode='same', boundary='symm')
+            gx = signal.convolve2d(img, gx_kernel, mode="same", boundary="symm")
+            gy = signal.convolve2d(img, gy_kernel, mode="same", boundary="symm")
             grad = (np.abs(gx) + np.abs(gy)) / 2.0
             # normalize to 0..1
             m = grad.max()
@@ -50,8 +47,12 @@ def hello(img, do_grayscale, do_contrast, contrast, do_edges):
             gx_ch = []
             gy_ch = []
             for c in range(rgb.shape[2]):
-                gx_c = signal.convolve2d(rgb[:, :, c], gx_kernel, mode='same', boundary='symm')
-                gy_c = signal.convolve2d(rgb[:, :, c], gy_kernel, mode='same', boundary='symm')
+                gx_c = signal.convolve2d(
+                    rgb[:, :, c], gx_kernel, mode="same", boundary="symm"
+                )
+                gy_c = signal.convolve2d(
+                    rgb[:, :, c], gy_kernel, mode="same", boundary="symm"
+                )
                 gx_ch.append(gx_c)
                 gy_ch.append(gy_c)
 

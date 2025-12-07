@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 from typing import Optional, List
 from pydantic import BaseModel
 from fastapi.staticfiles import StaticFiles
